@@ -3,17 +3,19 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
+var entries = utils.getMultiEntry('./src/pages/**/*.js');
+console.log(entries);
+
 function resolve (dir) {
     return path.join(__dirname, '..', dir)
 }
 
 module.exports = {
-    entry: {
-        app: './src/main.js'
-    },
+    entry: entries,
+    
     output: {
         path: config.build.assetsRoot,
-        filename: '[name].js',
+        filename: 'js/[name].js',
         publicPath: process.env.NODE_ENV === 'production'
             ? config.build.assetsPublicPath
             : config.dev.assetsPublicPath
@@ -23,7 +25,10 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': resolve('src'),
-        }
+            'assets': resolve('src/assets'),
+            'components': resolve('src/components')
+        },
+        symlinks: true
     },
     module: {
         rules: [

@@ -25,11 +25,18 @@ module.exports = merge(baseWebpackConfig, {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         // https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'index.html',
-            inject: true
-        }),
         new FriendlyErrorsPlugin()
     ]
 })
+
+var pages =  utils.getMultiEntry('./src/pages/**/*.html');
+for (var pathname in pages) {
+    
+    var conf = {
+        filename: pathname + '.html',
+        template: pages[pathname],
+        chunks: pathname === 'index' ? ['vendor', pathname] : [pathname],
+        inject: true
+    };
+    module.exports.plugins.push(new HtmlWebpackPlugin(conf));
+}
