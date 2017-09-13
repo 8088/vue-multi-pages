@@ -35,7 +35,7 @@ for (var pathname in pages) {
     var conf = {
         filename: pathname + '.html',
         template: pages[pathname],
-        chunks: pathname === 'index' ? ['vendor', pathname] : [pathname],
+        chunks: ['vendor', pathname],
         inject: true
     };
     module.exports.plugins.push(new HtmlWebpackPlugin(conf));

@@ -109,7 +109,7 @@ for (var pathname in pages) {
     var conf = {
         filename: pathname + '.html',
         template: pages[pathname], // 模板路径
-        chunks: pathname === 'index' ? ['vendor', pathname] : [pathname], // 每个html引用的js模块
+        chunks: ['vendor', pathname], // 每个html引用的js模块
         inject: true,
         hash: true
     };
